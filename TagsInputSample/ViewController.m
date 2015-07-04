@@ -16,6 +16,7 @@
 @property (nonatomic, strong) IBOutlet TLTagsControl *defauldListingTagControl;
 @property (nonatomic, strong) IBOutlet TLTagsControl *blueListingTagControl;
 @property (nonatomic, strong) IBOutlet TLTagsControl *redListingTagControl;
+@property (nonatomic, strong) IBOutlet TLTagsControl *customCharacterSetTagControl;
 
 @end
 
@@ -59,6 +60,12 @@
     _redListingTagControl.tagsBackgroundColor = redBackgroundColor;
     _redListingTagControl.tagsTextColor = whiteTextColor;
     
+    NSMutableCharacterSet *customCharacterSet = [NSMutableCharacterSet alphanumericCharacterSet];
+    [customCharacterSet addCharactersInString:@"#"];
+    _customCharacterSetTagControl.allowedCharacterSet = customCharacterSet;
+    _customCharacterSetTagControl.tags = [tags mutableCopy];
+    [_customCharacterSetTagControl.tags addObject:@"#hashtag"];
+    
     [_defaultEditingTagControl reloadTagSubviews];
     [_blueEditingTagControl reloadTagSubviews];
     [_redEditingTagControl reloadTagSubviews];
@@ -66,8 +73,9 @@
     [_blueListingTagControl reloadTagSubviews];
     [_redListingTagControl reloadTagSubviews];
     [_redListingTagControl setTapDelegate:self];
+    [_customCharacterSetTagControl reloadTagSubviews];
     
-    demoTagsControl = [[TLTagsControl alloc]initWithFrame:CGRectMake(8, 340, self.view.frame.size.width - 16, 36)
+    demoTagsControl = [[TLTagsControl alloc]initWithFrame:CGRectMake(8, 366, self.view.frame.size.width - 16, 36)
                                                   andTags:@[@"These", @"Tags", @"Are", @"Tapable"]
                                       withTagsControlMode:TLTagsControlModeList];
     

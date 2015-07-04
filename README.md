@@ -38,6 +38,12 @@ You are able to change colors of different element by setting these prperties
 @property (nonatomic, strong) UIColor *tagsDeleteButtonColor;
 ```
 
+#### Allowing custom character sets in the tags
+You can allow a custom character set in the tags by setting this property:
+```
+@property (nonatomic, strong) NSCharacterSet *allowedCharacterSet;
+```
+
 #### Applying changes
 
 To apply your changes you should call the method below

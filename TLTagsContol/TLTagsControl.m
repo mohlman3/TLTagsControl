@@ -82,6 +82,9 @@
     tagInputField_.placeholder = @"tag";
     tagInputField_.autocorrectionType = UITextAutocorrectionTypeNo;
     
+    // default allowed characters to Alphanumeric only
+    self.allowedCharacterSet = [NSCharacterSet alphanumericCharacterSet];
+    
     if (_mode == TLTagsControlModeEdit) {
         [self addSubview:tagInputField_];
     }
@@ -316,7 +319,7 @@
     NSString *text = textField.text;
     
     
-    if (string.length == 1 && [string rangeOfCharacterFromSet:[[NSCharacterSet alphanumericCharacterSet] invertedSet]].location != NSNotFound) {
+    if (string.length == 1 && [string rangeOfCharacterFromSet:[self.allowedCharacterSet invertedSet]].location != NSNotFound) {
         return NO;
     } else {
         if (!text || [text isEqualToString:@""]) {
@@ -330,11 +333,11 @@
                                                                       withString:string];
         }
         
-        NSArray *components = [resultingString componentsSeparatedByCharactersInSet:[[NSCharacterSet alphanumericCharacterSet] invertedSet]];
+        NSArray *components = [resultingString componentsSeparatedByCharactersInSet:[self.allowedCharacterSet invertedSet]];
         
         if (components.count > 2) {
             for (NSString *component in components) {
-                if (component.length > 0 && [component rangeOfCharacterFromSet:[[NSCharacterSet alphanumericCharacterSet] invertedSet]].location == NSNotFound) {
+                if (component.length > 0 && [component rangeOfCharacterFromSet:[self.allowedCharacterSet invertedSet]].location == NSNotFound) {
                     [self addTag:component];
                     break;
                 }
